@@ -1,0 +1,791 @@
+/* =========================================
+   BASIC RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: white;
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255, 180, 220, 0.45),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(255, 120, 180, 0.35),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #ff8fb8,
+            #ff6f9f,
+            #ff9fbd
+        );
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================
+   EACH SECTION
+========================================= */
+
+.page {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    position: relative;
+
+    padding: 80px 20px;
+
+    overflow: hidden;
+
+    scroll-snap-align: start;
+
+    /*
+       IMPORTANT:
+       No separate background here.
+       This allows the pink background to
+       continue smoothly between sections.
+    */
+
+    background: transparent;
+}
+
+
+/* =========================================
+   SOFT CONNECTION BETWEEN SECTIONS
+========================================= */
+
+.page:not(:last-child)::after {
+    content: "";
+
+    position: absolute;
+
+    left: -10%;
+    bottom: -45px;
+
+    width: 120%;
+    height: 110px;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(255, 190, 220, 0.45),
+            rgba(255, 130, 180, 0.12) 55%,
+            transparent 75%
+        );
+
+    filter: blur(18px);
+
+    pointer-events: none;
+
+    z-index: 2;
+
+    animation: flowingTransition 6s ease-in-out infinite;
+}
+
+
+/* Moving soft wave */
+
+@keyframes flowingTransition {
+
+    0% {
+        transform:
+            translateX(-20px)
+            scaleY(0.85);
+        opacity: 0.65;
+    }
+
+    50% {
+        transform:
+            translateX(20px)
+            scaleY(1.15);
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translateX(-20px)
+            scaleY(0.85);
+        opacity: 0.65;
+    }
+}
+
+
+/* =========================================
+   EXTRA PINK GLOW
+========================================= */
+
+.page::before {
+    content: "";
+
+    position: absolute;
+
+    width: 450px;
+    height: 450px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.13),
+            transparent 70%
+        );
+
+    top: -180px;
+    right: -120px;
+
+    pointer-events: none;
+
+    animation: glowFloat 8s ease-in-out infinite;
+}
+
+@keyframes glowFloat {
+
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-30px, 30px);
+    }
+}
+
+
+/* =========================================
+   BACKGROUND STARS
+========================================= */
+
+.stars {
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,0.8) 1px,
+            transparent 2px
+        );
+
+    background-size: 90px 90px;
+
+    opacity: 0.55;
+
+    animation: starsMove 12s ease-in-out infinite;
+}
+
+@keyframes starsMove {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+
+/* =========================================
+   FLOATING HEARTS
+========================================= */
+
+.hearts {
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 1;
+
+    opacity: 0.45;
+
+    animation: heartsMove 10s ease-in-out infinite;
+}
+
+@keyframes heartsMove {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-25px);
+    }
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.welcome,
+.birthday-content,
+.memories-content,
+.final-content,
+.ending-content,
+.letter {
+    position: relative;
+
+    z-index: 5;
+
+    width: min(100%, 1000px);
+}
+
+
+/* =========================================
+   OPENING
+========================================= */
+
+.welcome {
+    animation: openingAppear 1.2s ease forwards;
+}
+
+@keyframes openingAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* Gift */
+
+.gift-box {
+    display: inline-block;
+
+    font-size: 90px;
+
+    margin-bottom: 20px;
+
+    animation:
+        giftFloat 3s ease-in-out infinite,
+        giftGlow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes giftFloat {
+
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-18px) rotate(4deg);
+    }
+}
+
+@keyframes giftGlow {
+
+    from {
+        filter:
+            drop-shadow(
+                0 0 5px
+                rgba(255,255,255,0.3)
+            );
+    }
+
+    to {
+        filter:
+            drop-shadow(
+                0 0 25px
+                rgba(255,255,255,0.9)
+            );
+    }
+}
+
+
+/* =========================================
+   HEADINGS
+========================================= */
+
+h1,
+h2 {
+    text-shadow:
+        0 4px 15px rgba(180, 30, 100, 0.25);
+}
+
+.welcome h1 {
+    font-size: clamp(40px, 7vw, 80px);
+
+    margin-bottom: 20px;
+}
+
+.welcome p {
+    font-size: clamp(18px, 3vw, 28px);
+}
+
+.birthday-content h1 {
+    font-size: clamp(45px, 8vw, 90px);
+
+    margin-top: 20px;
+
+    animation: birthdayGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes birthdayGlow {
+
+    from {
+        text-shadow:
+            0 0 10px rgba(255,255,255,0.3);
+    }
+
+    to {
+        text-shadow:
+            0 0 30px rgba(255,255,255,0.9);
+    }
+}
+
+
+/* =========================================
+   SCROLL TEXT
+========================================= */
+
+.scroll-text {
+    margin-top: 45px;
+
+    font-size: 22px;
+
+    opacity: 0.85;
+
+    animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+
+    0%, 100% {
+        transform: translateY(0);
+
+        opacity: 0.55;
+    }
+
+    50% {
+        transform: translateY(10px);
+
+        opacity: 1;
+    }
+}
+
+
+/* =========================================
+   CAKE
+========================================= */
+
+.cake {
+    font-size: 120px;
+
+    display: inline-block;
+
+    animation:
+        cakeFloat 2.8s ease-in-out infinite;
+}
+
+@keyframes cakeFloat {
+
+    0%, 100% {
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+    50% {
+        transform:
+            translateY(-14px)
+            scale(1.04);
+    }
+}
+
+
+/* =========================================
+   REVEAL ANIMATIONS
+========================================= */
+
+.reveal {
+    opacity: 0;
+
+    transform:
+        translateY(60px)
+        scale(0.96);
+
+    transition:
+        opacity 0.9s ease,
+        transform 0.9s cubic-bezier(
+            0.2,
+            0.8,
+            0.2,
+            1
+        );
+}
+
+.reveal.visible {
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* =========================================
+   MEMORIES
+========================================= */
+
+.memories-content {
+    padding: 40px 0;
+}
+
+.memories-content h2 {
+    font-size: clamp(42px, 7vw, 75px);
+
+    margin-bottom: 15px;
+}
+
+.memories-content > p {
+    font-size: clamp(18px, 3vw, 25px);
+
+    margin-bottom: 45px;
+}
+
+
+/* =========================================
+   PHOTO GRID
+========================================= */
+
+.photo-grid {
+    width: min(100%, 900px);
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 25px;
+}
+
+.photo-card {
+    min-height: 230px;
+
+    border-radius: 25px;
+
+    background:
+        rgba(255,255,255,0.18);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.35);
+
+    backdrop-filter: blur(10px);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+
+    box-shadow:
+        0 15px 40px
+        rgba(150, 30, 90, 0.12);
+
+    opacity: 0;
+
+    transform:
+        translateY(60px)
+        scale(0.92)
+        rotateX(8deg);
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s
+        cubic-bezier(
+            0.2,
+            0.8,
+            0.2,
+            1
+        );
+}
+
+.page.active .photo-card {
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        scale(1)
+        rotateX(0);
+}
+
+.photo-card:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.photo-card:nth-child(2) {
+    transition-delay: 0.25s;
+}
+
+.photo-card:nth-child(3) {
+    transition-delay: 0.4s;
+}
+
+.photo-card:nth-child(4) {
+    transition-delay: 0.55s;
+}
+
+
+/* =========================================
+   LETTER
+========================================= */
+
+.letter-section {
+    align-items: flex-start;
+
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.letter {
+    max-width: 800px;
+
+    padding: 45px;
+
+    border-radius: 30px;
+
+    background:
+        rgba(255,255,255,0.16);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.35);
+
+    backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 20px 60px
+        rgba(150, 30, 90, 0.15);
+
+    text-align: left;
+}
+
+.letter h2 {
+    text-align: center;
+
+    font-size: 45px;
+
+    margin-bottom: 30px;
+}
+
+.letter p {
+    font-size: 18px;
+
+    line-height: 1.8;
+
+    margin-bottom: 18px;
+}
+
+.signature {
+    text-align: right;
+
+    margin-top: 30px;
+
+    font-size: 20px;
+}
+
+
+/* =========================================
+   ENDING
+========================================= */
+
+.ending {
+    min-height: 100vh;
+}
+
+.ending-content {
+    text-align: center;
+
+    transition:
+        transform 1s ease,
+        opacity 1s ease;
+}
+
+.ending-content h1 {
+    font-size: clamp(
+        50px,
+        10vw,
+        110px
+    );
+
+    margin-bottom: 20px;
+}
+
+.ending-content p {
+    font-size: clamp(
+        20px,
+        4vw,
+        30px
+    );
+}
+
+
+/* =========================================
+   ENDING HEART
+========================================= */
+
+.big-heart {
+    font-size: 110px;
+
+    display: inline-block;
+
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+
+/* =========================================
+   CONFETTI
+========================================= */
+
+.confetti {
+    position: fixed;
+
+    top: -30px;
+
+    font-size: 22px;
+
+    pointer-events: none;
+
+    z-index: 10000;
+
+    animation:
+        confettiFall
+        linear
+        forwards;
+}
+
+@keyframes confettiFall {
+
+    0% {
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+
+        opacity: 0;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .page {
+        padding:
+            70px
+            15px;
+    }
+
+    .gift-box {
+        font-size: 70px;
+    }
+
+    .cake {
+        font-size: 90px;
+    }
+
+    .photo-grid {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+    .photo-card {
+        min-height: 200px;
+    }
+
+    .letter {
+        padding: 28px 22px;
+    }
+
+    .letter h2 {
+        font-size: 35px;
+    }
+
+    .letter p {
+        font-size: 16px;
+    }
+
+    .page:not(:last-child)::after {
+        height: 80px;
+
+        bottom: -30px;
+    }
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
